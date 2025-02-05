@@ -84,117 +84,18 @@
                     user privacy and seamless experience.
                 </p>
                 
-                <h4 class="text-lg font-semibold mb-2">Key Contributions</h4>
+                <h4 class="text-lg font-semibold mb-2">Key Features</h4>
                 <ul class="list-disc list-inside mb-4 text-gray-700">
-                    <li>Built interest-based matching algorithm and UI</li>
-                    <li>Developed background notification service</li>
-                    <li>Created comprehensive profile management</li>
-                    <li>Implemented matching interface with swipe functionality</li>
-                    <li>Integrated WebSocket for real-time match notifications</li>
+                    <li>Interest-based matching algorithm</li>
+                    <li>Real-time notifications system</li>
+                    <li>Profile management</li>
+                    <li>WebSocket integration</li>
+                    <li>Background services</li>
                 </ul>
 
-                <h4 class="text-lg font-semibold mb-2">Technical Implementation</h4>
-                <ul class="list-disc list-inside mb-4 text-gray-700">
-                    <li>Android SDK with Java</li>
-                    <li>WebSocket for real-time notifications</li>
-                    <li>Android Service for background processing</li>
-                    <li>Custom UI components</li>
-                    <li>Efficient data management patterns</li>
-                </ul>
-            </div>
-
-            <!-- Hidden Harmony Code Samples -->
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-                <h3 class="text-xl font-semibold mb-3">Code Samples - Hidden Harmony</h3>
-                <pre><code class="language-java">
-// Real-time Notification Service
-public class NotificationService extends Service implements WebSocketListener {
-    private int notificationId = 0;
-    private int userId = -1;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Profile userProfile = UserProfileManager.getInstance().getUserProfile();
-        if (userProfile != null) {
-            userId = userProfile.getId();
-            
-            // Create notification channel for Android O and above
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationChannel channel = new NotificationChannel(
-                    "NotificationChannel", 
-                    "channel", 
-                    NotificationManager.IMPORTANCE_DEFAULT
-                );
-                NotificationManager manager = getSystemService(NotificationManager.class);
-                manager.createNotificationChannel(channel);
-            }
-
-            // Connect to WebSocket for real-time notifications
-            WebSocketManager.getInstance().connectWebSocket(
-                "ws://coms-309-054.class.las.iastate.edu:8080/notifications/" + userId
-            );
-            WebSocketManager.getInstance().setWebSocketListener(this);
-        }
-    }
-
-    @Override
-    public void onWebSocketMessage(String message) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-            NotificationService.this, 
-            "NotificationChannel"
-        );
-        builder.setContentTitle("Hidden Harmony");
-        builder.setContentText(message);
-        builder.setSmallIcon(R.drawable.ic_launcher_background);
-        builder.setAutoCancel(true);
-
-        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(
-            NotificationService.this
-        );
-        
-        if (hasNotificationPermission()) {
-            managerCompat.notify(notificationId++, builder.build());
-        }
-    }
-}
-
-// Profile Management with Interest-Based Matching
-public class Profile {
-    private int id;
-    private String name;
-    private String bio;
-    private ArrayList<String> interests;
-    private ArrayList<Profile> potentialMatches;
-
-    public void updatePotentialMatches(Context context, UpdateMatchesCallback callback) {
-        String apiUrl = "http://coms-309-054.class.las.iastate.edu:8080/api/matches/potential-matches/" + this.id;
-        potentialMatches.clear();
-        
-        HTTPHelper httpHelper = new HTTPHelper(context, apiUrl);
-        httpHelper.getArrayOfInts(apiUrl, new HTTPHelper.VolleyArrayCallback() {
-            @Override
-            public void onSuccess(JSONArray response) {
-                // Process potential matches based on interests
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        int profileId = response.getInt(i);
-                        Profile profile = new Profile(profileId, context, 
-                            profile -> {
-                                potentialMatches.add(profile);
-                                if (potentialMatches.size() == response.length()) {
-                                    callback.onMatchesUpdated(potentialMatches);
-                                }
-                            });
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
-}
-                </code></pre>
+                <a href="hidden-harmony.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors">
+                    View Project Details →
+                </a>
             </div>
         </section>
 
