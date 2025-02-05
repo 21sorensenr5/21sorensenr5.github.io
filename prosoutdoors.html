@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProsOutdoors - Video Sharing Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        .gradient-bg {
+            background: linear-gradient(90deg, #4F46E5 0%, #7C3AED 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <header class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-4">
+            <nav class="mb-8">
+                <a href="index.html" class="text-white hover:text-gray-200">← Back to Portfolio</a>
+            </nav>
+            <h1 class="text-4xl font-bold mb-4">ProsOutdoors</h1>
+            <p class="text-xl">Full-Stack Video Sharing Platform</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Project Overview</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <p class="text-gray-700 mb-4">
+                    A modern video sharing platform built for outdoor sports enthusiasts, featuring secure authentication, 
+                    cloud storage integration, and real-time interactions. This full-stack application demonstrates 
+                    implementation of modern web development practices and scalable architecture.
+                </p>
+                
+                <h3 class="text-xl font-semibold mb-3">Technical Stack</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">Frontend</h4>
+                        <ul class="list-disc list-inside text-gray-700">
+                            <li>React with TypeScript</li>
+                            <li>Material-UI Components</li>
+                            <li>Context API</li>
+                            <li>Custom Hooks</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-2">Backend</h4>
+                        <ul class="list-disc list-inside text-gray-700">
+                            <li>Node.js & Express</li>
+                            <li>MongoDB</li>
+                            <li>JWT Authentication</li>
+                            <li>Cloud Storage Integration</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-semibold mb-3">Key Features</h3>
+                <ul class="list-disc list-inside mb-4 text-gray-700">
+                    <li>Secure JWT-based authentication with token rotation</li>
+                    <li>Video processing with automatic thumbnail generation</li>
+                    <li>Real-time progress tracking</li>
+                    <li>Customizable user profiles</li>
+                    <li>Following system and activity tracking</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Code Samples</h2>
+            
+            <!-- Authentication -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-3">Authentication System</h3>
+                <p class="text-gray-700 mb-4">
+                    Secure JWT-based authentication system with middleware for protected routes.
+                    Implements token verification and user session management.
+                </p>
+                <pre><code class="language-typescript">
+// JWT-based authentication middleware
+const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = await User.findById(decoded.userId);
+        next();
+    } catch (error) {
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+};
+                </code></pre>
+            </div>
+
+            <!-- Video Processing -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-3">Video Processing</h3>
+                <p class="text-gray-700 mb-4">
+                    Cloud-based video processing system with automatic thumbnail generation.
+                    Handles video uploads, format conversion, and metadata management.
+                </p>
+                <pre><code class="language-typescript">
+// Video upload with automatic thumbnail generation
+const uploadVideo = async (req: Request, res: Response) => {
+    try {
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            resource_type: 'video',
+            folder: 'videos',
+            eager: [{ 
+                format: 'jpg',
+                transformation: [
+                    { width: 400, height: 300, crop: "fill" }
+                ]
+            }]
+        });
+
+        const video = new Video({
+            title: req.body.title,
+            url: result.secure_url,
+            thumbnailUrl: result.eager[0].secure_url,
+            user: req.user._id
+        });
+
+        await video.save();
+        res.status(201).json(video);
+    } catch (error) {
+        res.status(500).json({ message: 'Upload failed' });
+    }
+};
+                </code></pre>
+            </div>
+
+            <!-- React Components -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-3">React Components & Hooks</h3>
+                <p class="text-gray-700 mb-4">
+                    Custom React hooks and components for video upload and playback.
+                    Features progress tracking and custom video controls.
+                </p>
+                <pre><code class="language-typescript">
+// Custom hook for video upload with progress tracking
+const useVideoUpload = () => {
+    const [progress, setProgress] = useState(0);
+    const [error, setError] = useState<string | null>(null);
+
+    const uploadVideo = async (file: File, metadata: VideoMetadata) => {
+        try {
+            const formData = new FormData();
+            formData.append('video', file);
+            formData.append('metadata', JSON.stringify(metadata));
+
+            const response = await axios.post('/api/videos/upload', formData, {
+                onUploadProgress: (progressEvent) => {
+                    const percentage = Math.round(
+                        (progressEvent.loaded * 100) / progressEvent.total
+                    );
+                    setProgress(percentage);
+                }
+            });
+
+            return response.data;
+        } catch (err) {
+            setError('Upload failed');
+            throw err;
+        }
+    };
+
+    return { uploadVideo, progress, error };
+};
+
+// Video player component with custom controls
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ video }) => {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    const togglePlay = () => {
+        if (videoRef.current) {
+            if (isPlaying) {
+                videoRef.current.pause();
+            } else {
+                videoRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
+        }
+    };
+
+    return (
+        <div className="video-player">
+            <video
+                ref={videoRef}
+                src={video.url}
+                poster={video.thumbnailUrl}
+                onEnded={() => setIsPlaying(false)}
+            />
+            <div className="controls">
+                <Button onClick={togglePlay}>
+                    {isPlaying ? <PauseIcon /> : <PlayIcon />}
+                </Button>
+                <VideoProgress video={videoRef} />
+            </div>
+        </div>
+    );
+};
+                </code></pre>
+            </div>
+
+            <!-- Context API -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-semibold mb-3">State Management with Context</h3>
+                <p class="text-gray-700 mb-4">
+                    Global state management using React Context API.
+                    Handles user authentication state and session persistence.
+                </p>
+                <pre><code class="language-typescript">
+// Auth context for global user state management
+interface AuthContextType {
+    user: User | null;
+    login: (email: string, password: string) => Promise<void>;
+    logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextType>(null!);
+
+export const AuthProvider: React.FC = ({ children }) => {
+    const [user, setUser] = useState<User | null>(null);
+
+    const login = async (email: string, password: string) => {
+        try {
+            const response = await axios.post('/api/auth/login', {
+                email,
+                password
+            });
+            
+            const { token, user } = response.data;
+            localStorage.setItem('token', token);
+            setUser(user);
+        } catch (error) {
+            throw new Error('Authentication failed');
+        }
+    };
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        setUser(null);
+    };
+
+    return (
+        <AuthContext.Provider value={{ user, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+                </code></pre>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Architecture & Performance</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3">Architecture Highlights</h3>
+                        <ul class="list-disc list-inside text-gray-700">
+                            <li>RESTful API design</li>
+                            <li>Microservices architecture</li>
+                            <li>Cloud storage integration</li>
+                            <li>Secure authentication flow</li>
+                            <li>Error handling middleware</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3">Performance Optimizations</h3>
+                        <ul class="list-disc list-inside text-gray-700">
+                            <li>Lazy loading components</li>
+                            <li>Image optimization</li>
+                            <li>Caching strategies</li>
+                            <li>Efficient database queries</li>
+                            <li>CDN integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <p class="text-center">
+                Built with modern web technologies by Ryan Sorensen
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-typescript.min.js"></script>
+</body>
+</html> 
