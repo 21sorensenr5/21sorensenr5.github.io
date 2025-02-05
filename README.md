@@ -222,26 +222,78 @@ The application is fully responsive across devices:
 ## 🎵 Hidden Harmony - Anonymous Dating App
 
 ### Frontend Development Role
-Led frontend development for an innovative anonymous dating app using Android (Java). Implemented interest-based matching, real-time chat, and profile management with a focus on user privacy and seamless experience.
+Led frontend development for an innovative anonymous dating app using Android (Java). Implemented interest-based matching, real-time notifications, and profile management with a focus on user privacy and seamless experience.
 
 ### Key Contributions
 - Built interest-based matching algorithm and UI
-- Implemented real-time chat using WebSocket
-- Developed comprehensive profile management
-- Created matching interface with swipe functionality
-- Integrated real-time notifications for matches and messages
+- Developed background notification service
+- Created comprehensive profile management
+- Implemented matching interface with swipe functionality
+- Integrated WebSocket for real-time match notifications
 
 ### Technical Implementation
 - **Platform**: Android SDK with Java
-- **Communication**: WebSocket for real-time chat
+- **Communication**: WebSocket for real-time notifications
 - **Architecture**: Clean Architecture principles
 - **UI/UX**: Custom Android components
-- **Data**: Efficient state management
+- **Services**: Background notification service
 - **Testing**: JUnit and Espresso
 
 ### Code Samples
 
 ```java
+// Real-time Notification Service
+public class NotificationService extends Service implements WebSocketListener {
+    private int notificationId = 0;
+    private int userId = -1;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Profile userProfile = UserProfileManager.getInstance().getUserProfile();
+        if (userProfile != null) {
+            userId = userProfile.getId();
+            
+            // Create notification channel for Android O and above
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel(
+                    "NotificationChannel", 
+                    "channel", 
+                    NotificationManager.IMPORTANCE_DEFAULT
+                );
+                NotificationManager manager = getSystemService(NotificationManager.class);
+                manager.createNotificationChannel(channel);
+            }
+
+            // Connect to WebSocket for real-time notifications
+            WebSocketManager.getInstance().connectWebSocket(
+                "ws://coms-309-054.class.las.iastate.edu:8080/notifications/" + userId
+            );
+            WebSocketManager.getInstance().setWebSocketListener(this);
+        }
+    }
+
+    @Override
+    public void onWebSocketMessage(String message) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+            NotificationService.this, 
+            "NotificationChannel"
+        );
+        builder.setContentTitle("Hidden Harmony");
+        builder.setContentText(message);
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        builder.setAutoCancel(true);
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(
+            NotificationService.this
+        );
+        
+        if (hasNotificationPermission()) {
+            managerCompat.notify(notificationId++, builder.build());
+        }
+    }
+}
+
 // Profile Management with Interest-Based Matching
 public class Profile {
     private int id;
@@ -275,36 +327,6 @@ public class Profile {
                 }
             }
         });
-    }
-}
-
-// Real-time Chat Implementation
-public class WebSocketManager {
-    private static WebSocketManager instance;
-    private MyWebSocketClient webSocketClient;
-    private WebSocketListener webSocketListener;
-
-    public static synchronized WebSocketManager getInstance() {
-        if (instance == null) {
-            instance = new WebSocketManager();
-        }
-        return instance;
-    }
-
-    public void connectWebSocket(String serverUrl) {
-        try {
-            URI serverUri = URI.create(serverUrl);
-            webSocketClient = new MyWebSocketClient(serverUri);
-            webSocketClient.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sendMessage(String message) {
-        if (webSocketClient != null && webSocketClient.isOpen()) {
-            webSocketClient.send(message);
-        }
     }
 }
 ```
