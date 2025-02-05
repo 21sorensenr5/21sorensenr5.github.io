@@ -73,6 +73,109 @@
             </div>
         </section>
 
+        <!-- Hidden Harmony Project -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Hidden Harmony - Anonymous Dating App</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-3">Frontend Development Role</h3>
+                <p class="text-gray-700 mb-4">
+                    Led frontend development for an innovative anonymous dating app using Android (Java). 
+                    Implemented interest-based matching, real-time chat, and profile management with a focus on 
+                    user privacy and seamless experience.
+                </p>
+                
+                <h4 class="text-lg font-semibold mb-2">Key Contributions</h4>
+                <ul class="list-disc list-inside mb-4 text-gray-700">
+                    <li>Built interest-based matching algorithm and UI</li>
+                    <li>Implemented real-time chat using WebSocket</li>
+                    <li>Developed comprehensive profile management</li>
+                    <li>Created matching interface with swipe functionality</li>
+                    <li>Integrated real-time notifications for matches and messages</li>
+                </ul>
+
+                <h4 class="text-lg font-semibold mb-2">Technical Implementation</h4>
+                <ul class="list-disc list-inside mb-4 text-gray-700">
+                    <li>Android SDK with Java</li>
+                    <li>WebSocket for real-time chat</li>
+                    <li>RESTful API integration</li>
+                    <li>Custom UI components</li>
+                    <li>Efficient data management patterns</li>
+                </ul>
+            </div>
+
+            <!-- Hidden Harmony Code Samples -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-semibold mb-3">Code Samples - Hidden Harmony</h3>
+                <pre><code class="language-java">
+// Profile Management with Interest-Based Matching
+public class Profile {
+    private int id;
+    private String name;
+    private String bio;
+    private ArrayList<String> interests;
+    private ArrayList<Profile> potentialMatches;
+
+    public void updatePotentialMatches(Context context, UpdateMatchesCallback callback) {
+        String apiUrl = "http://coms-309-054.class.las.iastate.edu:8080/api/matches/potential-matches/" + this.id;
+        potentialMatches.clear();
+        
+        HTTPHelper httpHelper = new HTTPHelper(context, apiUrl);
+        httpHelper.getArrayOfInts(apiUrl, new HTTPHelper.VolleyArrayCallback() {
+            @Override
+            public void onSuccess(JSONArray response) {
+                // Process potential matches based on interests
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        int profileId = response.getInt(i);
+                        Profile profile = new Profile(profileId, context, 
+                            profile -> {
+                                potentialMatches.add(profile);
+                                if (potentialMatches.size() == response.length()) {
+                                    callback.onMatchesUpdated(potentialMatches);
+                                }
+                            });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+}
+
+// Real-time Chat Implementation
+public class WebSocketManager {
+    private static WebSocketManager instance;
+    private MyWebSocketClient webSocketClient;
+    private WebSocketListener webSocketListener;
+
+    public static synchronized WebSocketManager getInstance() {
+        if (instance == null) {
+            instance = new WebSocketManager();
+        }
+        return instance;
+    }
+
+    public void connectWebSocket(String serverUrl) {
+        try {
+            URI serverUri = URI.create(serverUrl);
+            webSocketClient = new MyWebSocketClient(serverUri);
+            webSocketClient.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMessage(String message) {
+        if (webSocketClient != null && webSocketClient.isOpen()) {
+            webSocketClient.send(message);
+        }
+    }
+}
+                </code></pre>
+            </div>
+        </section>
+
         <section class="mb-12">
             <h2 class="text-2xl font-bold mb-4">Code Samples</h2>
             

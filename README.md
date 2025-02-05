@@ -219,6 +219,103 @@ The application is fully responsive across devices:
 - Mobile-first approach
 - Touch-friendly interactions
 
+## 🎵 Hidden Harmony - Anonymous Dating App
+
+### Frontend Development Role
+Led frontend development for an innovative anonymous dating app using Android (Java). Implemented interest-based matching, real-time chat, and profile management with a focus on user privacy and seamless experience.
+
+### Key Contributions
+- Built interest-based matching algorithm and UI
+- Implemented real-time chat using WebSocket
+- Developed comprehensive profile management
+- Created matching interface with swipe functionality
+- Integrated real-time notifications for matches and messages
+
+### Technical Implementation
+- **Platform**: Android SDK with Java
+- **Communication**: WebSocket for real-time chat
+- **Architecture**: Clean Architecture principles
+- **UI/UX**: Custom Android components
+- **Data**: Efficient state management
+- **Testing**: JUnit and Espresso
+
+### Code Samples
+
+```java
+// Profile Management with Interest-Based Matching
+public class Profile {
+    private int id;
+    private String name;
+    private String bio;
+    private ArrayList<String> interests;
+    private ArrayList<Profile> potentialMatches;
+
+    public void updatePotentialMatches(Context context, UpdateMatchesCallback callback) {
+        String apiUrl = "http://coms-309-054.class.las.iastate.edu:8080/api/matches/potential-matches/" + this.id;
+        potentialMatches.clear();
+        
+        HTTPHelper httpHelper = new HTTPHelper(context, apiUrl);
+        httpHelper.getArrayOfInts(apiUrl, new HTTPHelper.VolleyArrayCallback() {
+            @Override
+            public void onSuccess(JSONArray response) {
+                // Process potential matches based on interests
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        int profileId = response.getInt(i);
+                        Profile profile = new Profile(profileId, context, 
+                            profile -> {
+                                potentialMatches.add(profile);
+                                if (potentialMatches.size() == response.length()) {
+                                    callback.onMatchesUpdated(potentialMatches);
+                                }
+                            });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+}
+
+// Real-time Chat Implementation
+public class WebSocketManager {
+    private static WebSocketManager instance;
+    private MyWebSocketClient webSocketClient;
+    private WebSocketListener webSocketListener;
+
+    public static synchronized WebSocketManager getInstance() {
+        if (instance == null) {
+            instance = new WebSocketManager();
+        }
+        return instance;
+    }
+
+    public void connectWebSocket(String serverUrl) {
+        try {
+            URI serverUri = URI.create(serverUrl);
+            webSocketClient = new MyWebSocketClient(serverUri);
+            webSocketClient.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMessage(String message) {
+        if (webSocketClient != null && webSocketClient.isOpen()) {
+            webSocketClient.send(message);
+        }
+    }
+}
+```
+
+### Development Practices
+- Agile methodology with GitLab CI/CD
+- Code review process
+- Comprehensive documentation
+- Unit and integration testing
+- Security best practices
+
 ## 🛠️ Development Practices
 
 - TypeScript for type safety
