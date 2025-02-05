@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProsOutdoors - Technical Showcase</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(120deg, #1a365d 0%, #2d3748 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="gradient-bg text-white p-6">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold">ProsOutdoors</h1>
+            <p class="text-gray-300">Full-Stack Video Sharing Platform</p>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Project Overview</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <p class="text-gray-700">
+                    A modern video sharing platform built for outdoor sports enthusiasts, featuring secure authentication,
+                    cloud storage integration, and real-time interactions.
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Technical Stack</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3">Frontend</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>React with TypeScript</li>
+                        <li>Material-UI Components</li>
+                        <li>Context API</li>
+                        <li>Custom Hooks</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3">Backend</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>Node.js & Express</li>
+                        <li>MongoDB</li>
+                        <li>JWT Authentication</li>
+                        <li>Cloud Storage Integration</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Key Features</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3">Authentication</h3>
+                    <p class="text-gray-700">Secure JWT-based authentication with token rotation and password hashing.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3">Video Processing</h3>
+                    <p class="text-gray-700">Automatic thumbnail generation, optimized streaming, and progress tracking.</p>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3">User Profiles</h3>
+                    <p class="text-gray-700">Customizable profiles with following system and activity tracking.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Code Samples</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <pre><code class="language-typescript">
+// Example of JWT-based authentication implementation
+const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = await User.findById(decoded.userId);
+        next();
+    } catch (error) {
+        res.status(401).json({ message: 'Authentication failed' });
+    }
+};
+                </code></pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <p class="text-center">
+                Built with modern web technologies by Ryan Sorensen
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-typescript.min.js"></script>
+</body>
+</html> 
