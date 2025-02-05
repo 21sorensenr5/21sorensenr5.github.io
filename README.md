@@ -8,7 +8,7 @@ A full-stack video sharing platform built for outdoor sports enthusiasts. This p
 
 ### Authentication System
 ```typescript
-// Example of JWT-based authentication implementation
+// JWT-based authentication middleware
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Extract token from Authorization header
@@ -23,6 +23,146 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
   } catch (error) {
     res.status(401).json({ message: 'Authentication failed' });
   }
+};
+```
+
+### Video Processing
+```typescript
+// Video upload with automatic thumbnail generation
+const uploadVideo = async (req: Request, res: Response) => {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      resource_type: 'video',
+      folder: 'videos',
+      eager: [{ 
+        format: 'jpg',
+        transformation: [
+          { width: 400, height: 300, crop: "fill" }
+        ]
+      }]
+    });
+
+    const video = new Video({
+      title: req.body.title,
+      url: result.secure_url,
+      thumbnailUrl: result.eager[0].secure_url,
+      user: req.user._id
+    });
+
+    await video.save();
+    res.status(201).json(video);
+  } catch (error) {
+    res.status(500).json({ message: 'Upload failed' });
+  }
+};
+```
+
+### React Components & Custom Hooks
+```typescript
+// Custom hook for video upload with progress tracking
+const useVideoUpload = () => {
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+
+  const uploadVideo = async (file: File, metadata: VideoMetadata) => {
+    try {
+      const formData = new FormData();
+      formData.append('video', file);
+      formData.append('metadata', JSON.stringify(metadata));
+
+      const response = await axios.post('/api/videos/upload', formData, {
+        onUploadProgress: (progressEvent) => {
+          const percentage = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setProgress(percentage);
+        }
+      });
+
+      return response.data;
+    } catch (err) {
+      setError('Upload failed');
+      throw err;
+    }
+  };
+
+  return { uploadVideo, progress, error };
+};
+
+// Video player component with custom controls
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ video }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  return (
+    <div className="video-player">
+      <video
+        ref={videoRef}
+        src={video.url}
+        poster={video.thumbnailUrl}
+        onEnded={() => setIsPlaying(false)}
+      />
+      <div className="controls">
+        <Button onClick={togglePlay}>
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+        </Button>
+        <VideoProgress video={videoRef} />
+      </div>
+    </div>
+  );
+};
+```
+
+### State Management with Context
+```typescript
+// Auth context for global user state management
+interface AuthContextType {
+  user: User | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+}
+
+const AuthContext = createContext<AuthContextType>(null!);
+
+export const AuthProvider: React.FC = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await axios.post('/api/auth/login', {
+        email,
+        password
+      });
+      
+      const { token, user } = response.data;
+      localStorage.setItem('token', token);
+      setUser(user);
+    } catch (error) {
+      throw new Error('Authentication failed');
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 ```
 
