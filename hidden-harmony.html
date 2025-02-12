@@ -33,6 +33,9 @@
             font-weight: 600;
             margin-bottom: 20px;
         }
+        .gradient-bg {
+            background: linear-gradient(90deg, #4F46E5 0%, #7C3AED 100%);
+        }
     </style>
 </head>
 
@@ -40,13 +43,13 @@
     <div id="mobile-menu-open" class="shadow-large">
         <i class="fa fa-bars" aria-hidden="true"></i>
     </div>
-    <header>
+    <header class="sticky">
         <div id="mobile-menu-close">
             <span>Close</span> <i class="fa fa-times" aria-hidden="true"></i>
         </div>
         <ul id="menu" class="shadow">
             <li>
-                <a href="index.html">Back to Portfolio</a>
+                <a href="/" class="no-scroll">Back to Portfolio</a>
             </li>
         </ul>
     </header>
@@ -72,7 +75,7 @@
                     
                     <h3>Key Contributions</h3>
                     <ul>
-                        <li>Built interest-based matching algorithm and UI</li>
+                        <li>Built interest-based matching user interface</li>
                         <li>Developed background notification service</li>
                         <li>Created comprehensive profile management</li>
                         <li>Implemented matching interface with swipe functionality</li>
