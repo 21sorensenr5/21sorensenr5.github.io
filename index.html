@@ -73,61 +73,53 @@
     </div>
 
     <div id="education">
-        <h2 class="heading">Education</h2>
         <div class="container">
-            <div class="education-block">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h3>Iowa State University</h3>
-                        <h4>Bachelor of Science in Computer Science</h4>
-                    </div>
-                    <div class="col-md-4 text-right">
-                        <span class="education-date">August 2021 - May 2025</span>
+            <h2 class="heading text-center">Education</h2>
+            <div class="education-wrapper">
+                <div class="education-block">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>Iowa State University</h3>
+                            <div class="subtitle">Bachelor of Science in Computer Science</div>
+                            <div class="location">Ames, Iowa</div>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <span class="education-date">August 2021 - May 2025</span>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p>Ames, Iowa</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="education-block">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3>Certifications</h3>
-                        <ul class="education-list">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h4>Tines Core Certification</h4>
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <span class="education-date">January 2025</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h4>Tines Advanced Certification</h4>
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <span class="education-date">January 2025</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h4>AWS Cloud Practitioner</h4>
-                                    </div>
-                                    <div class="col-md-4 text-right">
-                                        <span class="education-date">In Process</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                <div class="education-block">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Certifications</h3>
+                        </div>
+                    </div>
+                    <div class="certification-list">
+                        <div class="row certification-item">
+                            <div class="col-md-8">
+                                <div class="cert-name">Tines Core Certification</div>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="education-date">January 2025</span>
+                            </div>
+                        </div>
+                        <div class="row certification-item">
+                            <div class="col-md-8">
+                                <div class="cert-name">Tines Advanced Certification</div>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="education-date">January 2025</span>
+                            </div>
+                        </div>
+                        <div class="row certification-item">
+                            <div class="col-md-8">
+                                <div class="cert-name">AWS Cloud Practitioner</div>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <span class="education-date">In Process</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,38 +127,66 @@
     </div>
 
     <style>
+        .education-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
         .education-block {
-            padding: 20px;
+            padding: 30px;
             margin: 20px 0;
             border: 1px solid #dcd9d9;
             border-radius: 4px;
             background: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         .education-date {
             color: #74808a;
-            font-weight: 500;
+            font-weight: 400;
         }
 
-        .education-list {
-            list-style: none;
-            padding: 0;
+        .subtitle {
+            color: #74808a;
+            font-size: 1.1em;
+            margin: 5px 0;
         }
 
-        .education-list li {
+        .location {
+            color: #74808a;
+            font-size: 1em;
+            margin-top: 5px;
+        }
+
+        .certification-list {
+            margin-top: 15px;
+        }
+
+        .certification-item {
             margin-bottom: 15px;
+            padding: 5px 0;
         }
 
-        .education-list li:last-child {
+        .certification-item:last-child {
             margin-bottom: 0;
+        }
+
+        .cert-name {
+            color: #74808a;
+            font-size: 1.1em;
         }
 
         .text-right {
             text-align: right;
         }
 
-        #education h4 {
-            color: #74808a;
+        .text-center {
+            text-align: center;
+        }
+
+        #education h3 {
+            color: #374054;
             margin: 0;
             font-weight: 500;
         }
