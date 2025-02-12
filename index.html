@@ -74,116 +74,88 @@
     </div>
 
     <div id="education">
-        <div class="container">
-            <h2 class="heading text-center">Education</h2>
-            <div class="education-wrapper">
-                <div class="education-block">
-                    <div class="education-content">
-                        <h3>Iowa State University</h3>
-                        <div class="degree">Bachelor of Science in Computer Science</div>
-                        <div class="location">Ames, Iowa</div>
-                    </div>
-                    <div class="education-date">August 2021 - May 2025</div>
-                </div>
+        <h2 class="heading">Education</h2>
+        <div class="education-block">
+            <h3>Iowa State University</h3>
+            <span class="education-date">August 2021 - May 2025</span>
+            <h4>Bachelor of Science in Computer Science</h4>
+            <p>Ames, Iowa</p>
+        </div>
 
-                <div class="education-block">
-                    <h3>Certifications</h3>
-                    <div class="certification-item">
-                        <div class="cert-content">Tines Core Certification</div>
-                        <div class="education-date">January 2025</div>
-                    </div>
-                    <div class="certification-item">
-                        <div class="cert-content">Tines Advanced Certification</div>
-                        <div class="education-date">January 2025</div>
-                    </div>
-                    <div class="certification-item">
-                        <div class="cert-content">AWS Cloud Practitioner</div>
-                        <div class="education-date">In Process</div>
-                    </div>
-                </div>
-            </div>
+        <div class="education-block">
+            <h3>Certifications</h3>
+            <span class="education-date">2025</span>
+            <ul>
+                <li>Tines Core Certification - January 2025</li>
+                <li>Tines Advanced Certification - January 2025</li>
+                <li>AWS Cloud Practitioner - In Process</li>
+            </ul>
         </div>
     </div>
 
     <style>
-        .education-wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        .education-block {
-            padding: 30px;
-            margin: 20px 0;
-            border: 1px solid #dcd9d9;
-            border-radius: 4px;
-            background: #fff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .education-content {
-            margin-right: 200px;
-        }
-
-        .education-date {
-            color: #74808a;
-            font-weight: 400;
-            position: absolute;
-            right: 30px;
-            top: 30px;
-        }
-
-        .degree {
-            color: #74808a;
-            font-size: 1.1em;
-            margin: 10px 0;
-        }
-
-        .location {
-            color: #74808a;
-            font-size: 1em;
-            margin-top: 5px;
-        }
-
-        .certification-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .certification-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .certification-item:first-child {
-            padding-top: 0;
-        }
-
-        .cert-content {
-            color: #74808a;
-            font-size: 1.1em;
-        }
-
-        .text-center {
+        #education {
+            padding: 50px 15px;
+            border-bottom: 1px solid #dcd9d9;
             text-align: center;
         }
 
-        #education h3 {
+        #education h2 {
             color: #374054;
-            margin: 0;
-            font-size: 1.3em;
-            font-weight: 500;
+            margin-bottom: 50px;
         }
 
-        #education .heading {
-            border-bottom: 3px solid #3498db;
-            width: fit-content;
-            margin: 0 auto 40px auto;
-            padding-bottom: 10px;
+        .education-block {
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            padding: 15px;
+            border: 1px solid #dcd9d9;
+            text-align: left;
+            border-radius: 4px;
+            position: relative;
+            background: #fff;
+        }
+
+        .education-block h3 {
+            font-weight: 500;
+            float: left;
+            margin: 0;
+            color: #374054;
+            font-size: 1.5em;
+        }
+
+        .education-block span.education-date {
+            color: #74808a;
+            float: right;
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        .education-block h4 {
+            color: #74808a;
+            clear: both;
+            font-weight: 500;
+            margin: 0 0 15px 0;
+            font-size: 1.2em;
+            padding-top: 30px;
+        }
+
+        .education-block p {
+            margin: 0;
+            color: #74808a;
+            font-size: 1em;
+        }
+
+        .education-block ul {
+            padding: 0 0 0 15px;
+            margin: 15px 0 0 0;
+            clear: both;
+        }
+
+        .education-block ul li {
+            color: #74808a;
+            font-size: 0.9em;
+            margin-bottom: 10px;
         }
     </style>
 
