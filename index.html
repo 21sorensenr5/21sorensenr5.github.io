@@ -1,125 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ryan Sorensen - Software Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .gradient-bg {
-            background: linear-gradient(90deg, #4F46E5 0%, #7C3AED 100%);
-        }
-    </style>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <header class="gradient-bg text-white py-16">
-        <div class="container mx-auto px-4">
-            <h1 class="text-5xl font-bold mb-4">Ryan Sorensen</h1>
-            <p class="text-xl">Software Engineer</p>
+
+<body>
+    <div id="mobile-menu-open" class="shadow-large">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </div>
+    <header>
+        <div id="mobile-menu-close">
+            <span>Close</span> <i class="fa fa-times" aria-hidden="true"></i>
         </div>
+        <ul id="menu" class="shadow">
+            <li>
+                <a href="#about">About</a>
+            </li>
+            <li>
+                <a href="#projects">Projects</a>
+            </li>
+            <li>
+                <a href="#skills">Skills</a>
+            </li>
+            <li>
+                <a href="#contact">Contact</a>
+            </li>
+        </ul>
     </header>
 
-    <main class="container mx-auto px-4 py-8">
-        <section class="mb-12">
-            <h2 class="text-3xl font-bold mb-8">Featured Projects</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- ProsOutdoors -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">ProsOutdoors</h3>
-                        <p class="text-gray-600 mb-4">Full-Stack Video Sharing Platform</p>
-                        <div class="mb-4">
-                            <h4 class="font-semibold mb-2">Technologies</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">React</span>
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">TypeScript</span>
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">Node.js</span>
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">MongoDB</span>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 mb-4">
+    <div id="lead">
+        <div id="lead-content">
+            <h1>Ryan Sorensen</h1>
+            <h2>Software Engineer</h2>
+            <a href="#" class="btn-rounded-white">Download Resume</a>
+        </div>
+        <div id="lead-overlay"></div>
+        <div id="lead-down">
+            <span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="heading">About Me</h2>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                        I am a passionate Software Engineer with expertise in both frontend and backend development. 
+                        My focus is on creating efficient, scalable, and user-friendly applications using modern technologies 
+                        and best practices.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="projects" class="background-alt">
+        <h2 class="heading">Projects</h2>
+        <div class="container">
+            <div class="row">
+                <div class="project shadow-large">
+                    <div class="project-image">
+                        <img src="images/project.jpg" />
+                    </div>
+                    <div class="project-info">
+                        <h3>ProsOutdoors</h3>
+                        <p>
                             A modern video sharing platform for outdoor sports enthusiasts, featuring secure authentication, 
-                            cloud storage integration, and real-time interactions.
+                            cloud storage integration, and real-time interactions. Built with React, TypeScript, Node.js, and MongoDB.
                         </p>
-                        <div class="flex gap-4">
-                            <a href="prosoutdoors.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors">
-                                View Details →
-                            </a>
-                        </div>
+                        <a href="prosoutdoors.html">View Project</a>
                     </div>
                 </div>
 
-                <!-- Hidden Harmony -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Hidden Harmony</h3>
-                        <p class="text-gray-600 mb-4">Anonymous Dating App</p>
-                        <div class="mb-4">
-                            <h4 class="font-semibold mb-2">Technologies</h4>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">Android</span>
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">Java</span>
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">WebSocket</span>
-                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm">REST API</span>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 mb-4">
+                <div class="project shadow-large">
+                    <div class="project-image">
+                        <img src="images/project.jpg" />
+                    </div>
+                    <div class="project-info">
+                        <h3>Hidden Harmony</h3>
+                        <p>
                             An innovative dating app focused on interest-based matching, featuring real-time notifications 
-                            and comprehensive profile management.
+                            and comprehensive profile management. Developed using Android, Java, WebSocket, and REST API.
                         </p>
-                        <div class="flex gap-4">
-                            <a href="hidden-harmony.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors">
-                                View Details →
-                            </a>
-                        </div>
+                        <a href="hidden-harmony.html">View Project</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section class="mb-12">
-            <h2 class="text-3xl font-bold mb-8">Skills & Technologies</h2>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-bold mb-4">Frontend Development</h3>
-                    <ul class="list-disc list-inside text-gray-700">
-                        <li>React & TypeScript</li>
-                        <li>Android Development</li>
-                        <li>UI/UX Design</li>
-                        <li>State Management</li>
-                        <li>Responsive Design</li>
-                    </ul>
+    <div id="skills">
+        <h2 class="heading">Skills</h2>
+        <ul>
+            <li>React</li>
+            <li>TypeScript</li>
+            <li>Node.js</li>
+            <li>MongoDB</li>
+            <li>Android Development</li>
+            <li>Java</li>
+            <li>WebSocket</li>
+            <li>REST API</li>
+            <li>UI/UX Design</li>
+            <li>State Management</li>
+            <li>Responsive Design</li>
+            <li>Express</li>
+            <li>Cloud Services</li>
+            <li>Git</li>
+            <li>CI/CD</li>
+            <li>Test-Driven Development</li>
+            <li>Agile Methodology</li>
+        </ul>
+    </div>
+
+    <div id="contact">
+        <h2>Get in Touch</h2>
+        <div id="contact-form">
+            <form method="POST" action="https://formspree.io/your.email@example.com">
+                <input type="hidden" name="_subject" value="Contact request from personal website" />
+                <input type="email" name="_replyto" placeholder="Your email" required>
+                <textarea name="message" placeholder="Your message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 copyright">
+                    <p>
+                        Copyright &copy; <span id="current-year">2024</span> Ryan Sorensen
+                    </p>
                 </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-bold mb-4">Backend Development</h3>
-                    <ul class="list-disc list-inside text-gray-700">
-                        <li>Node.js & Express</li>
-                        <li>RESTful APIs</li>
-                        <li>WebSocket</li>
-                        <li>MongoDB</li>
-                        <li>Cloud Services</li>
-                    </ul>
+                <div class="col-sm-2 top">
+                    <span id="to-top">
+                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                    </span>
                 </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-bold mb-4">Development Practices</h3>
-                    <ul class="list-disc list-inside text-gray-700">
-                        <li>Agile Methodology</li>
-                        <li>Git Version Control</li>
-                        <li>CI/CD</li>
-                        <li>Test-Driven Development</li>
-                        <li>Code Review</li>
+                <div class="col-sm-5 social">
+                    <ul>
+                        <li>
+                            <a href="https://github.com/21sorensenr5" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+                        </li>
                     </ul>
                 </div>
             </div>
-        </section>
-    </main>
-
-    <footer class="gradient-bg text-white py-8">
-        <div class="container mx-auto px-4">
-            <p class="text-center">
-                Built with modern web technologies by Ryan Sorensen
-            </p>
         </div>
     </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/scripts.min.js"></script>
 </body>
+
 </html> 
