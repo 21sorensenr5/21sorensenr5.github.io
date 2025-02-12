@@ -78,49 +78,27 @@
             <h2 class="heading text-center">Education</h2>
             <div class="education-wrapper">
                 <div class="education-block">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h3>Iowa State University</h3>
-                            <div class="subtitle">Bachelor of Science in Computer Science</div>
-                            <div class="location">Ames, Iowa</div>
-                        </div>
-                        <div class="col-md-4 text-right">
-                            <span class="education-date">August 2021 - May 2025</span>
-                        </div>
+                    <div class="education-content">
+                        <h3>Iowa State University</h3>
+                        <div class="degree">Bachelor of Science in Computer Science</div>
+                        <div class="location">Ames, Iowa</div>
                     </div>
+                    <div class="education-date">August 2021 - May 2025</div>
                 </div>
 
                 <div class="education-block">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3>Certifications</h3>
-                        </div>
+                    <h3>Certifications</h3>
+                    <div class="certification-item">
+                        <div class="cert-content">Tines Core Certification</div>
+                        <div class="education-date">January 2025</div>
                     </div>
-                    <div class="certification-list">
-                        <div class="row certification-item">
-                            <div class="col-md-8">
-                                <div class="cert-name">Tines Core Certification</div>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <span class="education-date">January 2025</span>
-                            </div>
-                        </div>
-                        <div class="row certification-item">
-                            <div class="col-md-8">
-                                <div class="cert-name">Tines Advanced Certification</div>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <span class="education-date">January 2025</span>
-                            </div>
-                        </div>
-                        <div class="row certification-item">
-                            <div class="col-md-8">
-                                <div class="cert-name">AWS Cloud Practitioner</div>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <span class="education-date">In Process</span>
-                            </div>
-                        </div>
+                    <div class="certification-item">
+                        <div class="cert-content">Tines Advanced Certification</div>
+                        <div class="education-date">January 2025</div>
+                    </div>
+                    <div class="certification-item">
+                        <div class="cert-content">AWS Cloud Practitioner</div>
+                        <div class="education-date">In Process</div>
                     </div>
                 </div>
             </div>
@@ -141,17 +119,25 @@
             border-radius: 4px;
             background: #fff;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .education-content {
+            margin-right: 200px;
         }
 
         .education-date {
             color: #74808a;
             font-weight: 400;
+            position: absolute;
+            right: 30px;
+            top: 30px;
         }
 
-        .subtitle {
+        .degree {
             color: #74808a;
             font-size: 1.1em;
-            margin: 5px 0;
+            margin: 10px 0;
         }
 
         .location {
@@ -160,26 +146,26 @@
             margin-top: 5px;
         }
 
-        .certification-list {
-            margin-top: 15px;
-        }
-
         .certification-item {
-            margin-bottom: 15px;
-            padding: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
         }
 
         .certification-item:last-child {
-            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
         }
 
-        .cert-name {
+        .certification-item:first-child {
+            padding-top: 0;
+        }
+
+        .cert-content {
             color: #74808a;
             font-size: 1.1em;
-        }
-
-        .text-right {
-            text-align: right;
         }
 
         .text-center {
@@ -189,7 +175,15 @@
         #education h3 {
             color: #374054;
             margin: 0;
+            font-size: 1.3em;
             font-weight: 500;
+        }
+
+        #education .heading {
+            border-bottom: 3px solid #3498db;
+            width: fit-content;
+            margin: 0 auto 40px auto;
+            padding-bottom: 10px;
         }
     </style>
 
@@ -254,8 +248,9 @@
     <div id="contact">
         <h2>Get in Touch</h2>
         <div id="contact-form">
-            <form method="POST" action="https://formspree.io/your.email@example.com">
-                <input type="hidden" name="_subject" value="Contact request from personal website" />
+            <form method="POST" action="https://formspree.io/f/ryanssorensen3@gmail.com">
+                <input type="hidden" name="_subject" value="Contact request from portfolio website" />
+                <input type="hidden" name="_next" value="https://21sorensenr5.github.io/#contact" />
                 <input type="email" name="_replyto" placeholder="Your email" required>
                 <textarea name="message" placeholder="Your message" required></textarea>
                 <button type="submit">Send</button>
